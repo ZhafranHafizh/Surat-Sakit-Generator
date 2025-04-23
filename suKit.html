@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Surat Sakit</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        #suratContainer {
+            position: relative;
+            width: 794px;
+            height: 1123px;
+            background: white;
+            border: 1px solid #000;
+            margin: auto;
+            padding: 60px;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header img {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .textLayer p {
+            font-size: 18px;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .signature {
+            margin-top: 100px;
+            text-align: right;
+            font-size: 18px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 class="text-center my-4">Form Surat Keterangan Sakit</h2>
+        <form id="formSurat" class="bg-white p-4 rounded shadow-sm mb-4">
+            <div class="mb-3">
+                <input type="text" id="nama" class="form-control" placeholder="Nama">
+            </div>
+            <div class="mb-3">
+                <input type="number" id="umur" class="form-control" placeholder="Umur">
+            </div>
+            <div class="mb-3">
+                <input type="text" id="pekerjaan" class="form-control" placeholder="Pekerjaan">
+            </div>
+            <div class="mb-3">
+                <input type="text" id="alamat" class="form-control" placeholder="Alamat Rumah">
+            </div>
+            <div class="mb-3">
+                <input type="text" id="diagnosis" class="form-control" placeholder="Diagnosis">
+            </div>
+            <div class="mb-3">
+                <textarea id="catatanDokter" class="form-control" placeholder="Catatan Dokter" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="number" id="hari" class="form-control" placeholder="Jumlah Hari Istirahat">
+            </div>
+            <div class="mb-3">
+                <input type="date" id="mulai" class="form-control">
+            </div>
+            <div class="mb-3">
+                <input type="date" id="selesai" class="form-control">
+            </div>
+            <div class="mb-3">
+                <select id="dokter" class="form-select">
+                    <option value="Dr. Riani Dewi A|123456">Dr. Riani Dewi A</option>
+                    <option value="Dr. Andi Pratama|654321">Dr. Andi Pratama</option>
+                    <option value="Dr. Siti Nurhaliza|789012">Dr. Siti Nurhaliza</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary w-100" onclick="generateSurat()">Lihat Surat</button>
+        </form>
+
+        <div id="suratContainer" style="display:none">
+            <div class="header d-flex align-items-center border-bottom pb-3 mb-4">
+                <img src="./logoBhusada.jpeg" alt="Clinic Logo">
+                <div class="clinic-info">
+                    <h1 class="h4">Klinik Sehat Sentosa</h1>
+                    <p>Jl. Kesehatan No. 123, Jakarta</p>
+                    <p>Telp: (021) 123-4567</p>
+                </div>
+            </div>
+            <div class="textLayer">
+                <h2 class="text-center fw-bold text-decoration-underline">SURAT KETERANGAN SAKIT</h2>
+                <br>
+                <table style="width: 100%; font-size: 18px; line-height: 1.6;">
+                    <tr>
+                        <td style="width: 30%;"><strong>Nama</strong></td>
+                        <td><span>: </span><span id="outputNama">.......................................</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Umur</strong></td>
+                        <td><span>: </span><span id="outputUmur">.......................................</span> tahun
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pekerjaan</strong></td>
+                        <td><span>: </span><span id="outputPekerjaan">.......................................</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alamat Rumah</strong></td>
+                        <td><span>: </span><span id="outputAlamat">.......................................</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Diagnosis</strong></td>
+                        <td><span>: </span><span id="outputDiagnosis">.......................................</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Catatan Dokter</strong></td>
+                        <td><span>:</span><span id="outputCatatanDokter">.......................................</span>
+                        </td>
+                    </tr>
+                </table>
+                <p><strong>Perlu istirahat karena sakit selama</strong> <span
+                        id="outputHari">.......................................</span> hari</p>
+                <p>Terhitung mulai tanggal: <span id="outputMulai">.......................................</span> sampai
+                    dengan tanggal: <span id="outputSelesai">.......................................</span></p>
+                <p>Demikian Surat Keterangan ini dibuat dengan sebenarnya, agar yang berkepentingan maklum adanya.</p>
+
+                <div class="signature">
+                    <p>Jakarta, <span id="outputTanggal">.......................................</span></p>
+                    <br><br>
+                    <p><strong id="outputDokterNama">.......................................</strong><br>NIP. <span
+                            id="outputDokterNIP">...............................</span></p>
+                </div>
+            </div>
+            <div class="footer"></div>
+                <p>Klinik Sehat Sentosa - Memberikan pelayanan kesehatan terbaik untuk Anda</p>
+            </div>
+        </div>
+
+        <button onclick="downloadPDF()" class="btn btn-success w-100 mt-3">Download PDF</button>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function generateSurat() {
+            const nama = document.getElementById('nama').value || '.......................................';
+            const umur = document.getElementById('umur').value || '.......................................';
+            const pekerjaan = document.getElementById('pekerjaan').value || '.......................................';
+            const alamat = document.getElementById('alamat').value || '.......................................';
+            const diagnosis = document.getElementById('diagnosis').value || '.......................................';
+            const catatanDokter = document.getElementById('catatanDokter').value || '.......................................';
+            const hari = document.getElementById('hari').value || '.......................................';
+            const mulai = document.getElementById('mulai').value || '.......................................';
+            const selesai = document.getElementById('selesai').value || '.......................................';
+            const dokter = document.getElementById('dokter').value.split('|');
+            const dokterNama = dokter[0];
+            const dokterNIP = dokter[1];
+
+            document.getElementById('outputNama').innerText = nama;
+            document.getElementById('outputUmur').innerText = umur;
+            document.getElementById('outputPekerjaan').innerText = pekerjaan;
+            document.getElementById('outputAlamat').innerText = alamat;
+            document.getElementById('outputDiagnosis').innerText = diagnosis;
+            document.getElementById('outputCatatanDokter').innerText = catatanDokter;
+            document.getElementById('outputHari').innerText = hari;
+            document.getElementById('outputMulai').innerText = mulai;
+            document.getElementById('outputSelesai').innerText = selesai;
+            document.getElementById('outputDokterNama').innerText = dokterNama;
+            document.getElementById('outputDokterNIP').innerText = dokterNIP;
+
+            const today = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('outputTanggal').innerText = today.toLocaleDateString('id-ID', options);
+
+            document.getElementById('suratContainer').style.display = 'block';
+        }
+
+        async function downloadPDF() {
+            const container = document.getElementById("suratContainer");
+            const canvas = await html2canvas(container, { scale: 1 });
+            const imgData = canvas.toDataURL("image/jpeg", 0.7);
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF("p", "pt", "a4");
+            const pdfWidth = 595;
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+            pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+            pdf.save("surat_keterangan_sakit.pdf");
+        }
+    </script>
+</body>
+
+</html>
